@@ -1,0 +1,1414 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afripro · Building technology solutions for Africa</title>
+<meta name="description" content="Afripro Innovative Solutions Limited is a technology company in Lagos. It designs, builds and operates software for Africa's everyday challenges. Its first product is Oboko.">
+<meta name="theme-color" content="#F3F0E7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-60 -60 780 840'%3E%3Crect x='-60' y='-60' width='780' height='840' fill='%230B1230'/%3E%3Cpath fill='%23F3F0E7' d='M0 720L294 0L366 0L660 720L510 720L330 279L150 720Z'/%3E%3Cpath fill='%23F5B301' d='M246 552H414V720H246Z'/%3E%3C/svg%3E">
+<style>
+/* =========================================================================
+   Afripro · one-file site. Tokens first; read 05_afripro/DESIGN.md for the why.
+   ========================================================================= */
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/instrument-sans-var.woff2") format("woff2");
+  font-weight: 400 700; font-stretch: 75% 100%; font-display: swap;
+}
+@font-face {
+  font-family: "Martian Mono";
+  src: url("assets/fonts/martian-mono-var.woff2") format("woff2");
+  font-weight: 400 500; font-display: swap;
+}
+
+:root {
+  /* ---- palette ---- */
+  --ink-950: #0B1230;   /* adire indigo, darkest: text on paper, dark ground */
+  --ink-900: #121B44;
+  --ink-800: #1B275C;   /* drawing lines on dark */
+  --ink-700: #2A3A85;   /* links and focus on paper */
+  --ink-500: #5566B5;   /* construction lines (non-text) */
+  --ink-300: #A3ADDA;   /* muted text on dark, 8.3:1 */
+  --ink-200: #C9CFEB;   /* soft text on dark, 11.9:1 */
+  --paper:   #F3F0E7;   /* the sheet */
+  --paper-2: #E8E3D5;   /* sunken bands */
+  --paper-line: #C4BCA6;/* hairlines on paper (non-text) */
+  --signal:  #F5B301;   /* danfo yellow: the one signal */
+  --signal-hover: #FFC633;
+  /* Oboko's own colours, only inside the Oboko block */
+  --oboko-green: #163E35; --oboko-green-deep: #102E27; --oboko-ink: #0B211C;
+  --oboko-orange: #E8692A; --oboko-orange-hover: #F27C3C; --oboko-mint: #78C5A5;
+
+  /* ---- roles (remapped by the .tone-* classes) ---- */
+  --bg: var(--paper);
+  --text: var(--ink-950);
+  --text-soft: #2B3157;      /* 11.0:1 on paper */
+  --text-muted: #4B5175;     /* 6.7:1 on paper, 6.0:1 on paper-2: the lightest text */
+  --line: var(--paper-line);
+  --rule: var(--ink-950);
+  --link: var(--ink-700);
+  --focus: var(--ink-700);
+  --action: var(--signal); --action-hover: var(--signal-hover); --on-action: var(--ink-950);
+
+  /* ---- type ---- */
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --fs-mono: 0.75rem;                                   /* 12 px, the floor */
+  --fs-sm: 0.875rem;                                    /* 14 */
+  --fs-body: 1rem;                                      /* 16 → 17 */
+  --fs-lede: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+  --fs-h3: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  --fs-h2: clamp(2.375rem, 1.6rem + 3.2vw, 4.5rem);
+  --fs-display: clamp(3.25rem, 1.9rem + 5.6vw, 7.25rem);
+  --lh-display: 0.9; --lh-head: 0.96; --lh-body: 1.55;
+  --measure: 62ch;
+
+  /* ---- space and grid ---- */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+  --section: clamp(64px, 5rem + 3vw, 136px);
+  --gutter: 16px;
+  --col-gap: 16px;
+  --wrap: 1280px;
+  --tap: 44px;
+  --header-h: 64px;
+
+  /* ---- motion ---- */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --ease-drop: cubic-bezier(.3, 1.35, .5, 1);
+  --t-fast: 140ms; --t-mid: 280ms; --t-slow: 700ms;
+}
+@media (min-width: 600px)  { :root { --gutter: 32px; --col-gap: 24px; } }
+@media (min-width: 1024px) { :root { --gutter: 48px; --header-h: 76px; --fs-body: 1.0625rem; } }
+
+/* ---- tones: a section paints itself and remaps the role tokens ---- */
+.tone-paper  { --bg: var(--paper); }
+.tone-sunken { --bg: var(--paper-2); }
+.tone-dark {
+  --bg: var(--ink-950); --text: var(--paper); --text-soft: var(--ink-200); --text-muted: var(--ink-300);
+  --line: #2B376B; --rule: var(--paper); --link: var(--paper); --focus: var(--signal);
+}
+.tone-oboko {
+  --bg: var(--oboko-green); --text: var(--paper); --text-soft: #D7E6DF; --text-muted: #B5D3C6;
+  --line: #2F5E52; --rule: var(--paper); --link: var(--paper); --focus: var(--signal);
+  --action: var(--oboko-orange); --action-hover: var(--oboko-orange-hover); --on-action: var(--oboko-ink);
+}
+.tone-signal {
+  --bg: var(--signal); --text: var(--ink-950); --text-soft: var(--ink-950); --text-muted: var(--ink-900);
+  --line: rgba(11, 18, 48, .28); --rule: var(--ink-950); --link: var(--ink-950); --focus: var(--ink-950);
+  --action: var(--ink-950); --action-hover: var(--ink-800); --on-action: var(--paper);
+}
+.tone-paper, .tone-sunken, .tone-dark, .tone-oboko, .tone-signal { background: var(--bg); color: var(--text); }
+
+/* =========================================================================
+   Base
+   ========================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--header-h); }
+body {
+  margin: 0; background: var(--paper); color: var(--text);
+  font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body);
+  font-weight: 400; font-stretch: 100%;
+  text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: .22em; }
+a:hover { text-decoration-thickness: 2px; }
+strong, b { font-weight: 600; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+[tabindex="-1"]:focus { outline: none; }
+::selection { background: var(--signal); color: var(--ink-950); }
+
+.wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
+.section { padding-block: var(--section); }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---- type helpers ---- */
+.display, .h2, .h3, .cond {
+  font-stretch: 75%; font-weight: 700; letter-spacing: -0.005em; text-wrap: balance;
+}
+.display { font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: -0.012em; }
+.h2 { font-size: var(--fs-h2); line-height: var(--lh-head); }
+.h3 { font-size: var(--fs-h3); line-height: 1.05; }
+.lede { font-size: var(--fs-lede); line-height: 1.45; color: var(--text-soft); max-width: 40ch; text-wrap: pretty; }
+.prose { color: var(--text-soft); max-width: var(--measure); text-wrap: pretty; }
+p { text-wrap: pretty; }
+.prose + .prose { margin-top: var(--s4); }
+.mono {
+  font-family: var(--font-mono); font-size: var(--fs-mono); line-height: 1.5;
+  text-transform: uppercase; letter-spacing: .06em; font-weight: 400;
+}
+.muted { color: var(--text-muted); }
+
+/* ---- the sheet head: every section opens like a drawing sheet ---- */
+.sheet-head {
+  display: flex; gap: var(--s4); align-items: baseline;
+  border-top: 2px solid var(--rule); padding-top: var(--s3); margin-bottom: var(--s6);
+  color: var(--text-muted);
+}
+.sheet-head .end { margin-left: auto; text-align: right; }
+
+/* ---- the block: the brand's one marker (the square from the logo) ---- */
+.block { display: inline-block; width: .7em; height: .7em; background: var(--signal); flex: none; }
+.tone-signal .block { background: var(--ink-950); }
+
+/* ---- buttons ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 20px; border: 2px solid transparent; border-radius: 0;
+  font: 600 1rem/1.1 var(--font-sans); text-decoration: none; cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.btn svg { width: 18px; height: 18px; flex: none; transition: transform var(--t-fast) var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+.btn-primary { background: var(--action); color: var(--on-action); }
+.btn-primary:hover { background: var(--action-hover); }
+.btn-ink { background: var(--ink-950); color: var(--paper); }
+.btn-ink:hover { background: var(--ink-700); }
+.btn-line { border-color: currentColor; color: var(--text); background: transparent; }
+.btn-line:hover { background: var(--text); color: var(--bg); }
+.btn-sm { min-height: var(--tap); padding: 0 16px; font-size: .9375rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.arrow-link {
+  display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap);
+  font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 2px solid var(--rule);
+}
+.arrow-link svg { width: 18px; height: 18px; transition: transform var(--t-fast) var(--ease); }
+.arrow-link:hover svg { transform: translateX(4px); }
+
+/* ---- the register: how Afripro shows facts (a key/value sheet, never a stat wall) ---- */
+.register { display: grid; grid-template-columns: minmax(6.5rem, 32%) 1fr; border-top: 1px solid var(--line); }
+.register dt, .register dd { padding-block: 13px; border-bottom: 1px solid var(--line); }
+.register dt { padding-right: var(--s4); padding-top: 16px; color: var(--text-muted); }
+.register dd { color: var(--text); }
+.register dd small { display: block; color: var(--text-muted); font-size: var(--fs-sm); margin-top: 2px; }
+.register--stack { grid-template-columns: 1fr; }
+.register--stack dt { border-bottom: 0; padding-bottom: 0; }
+.register--stack dd { padding-top: 2px; }
+.register .live { display: inline-flex; align-items: center; gap: 8px; }
+.register .live .block { width: 10px; height: 10px; }
+.tone-oboko .register .live .block { background: var(--oboko-mint); }
+
+/* =========================================================================
+   Header and navigation
+   ========================================================================= */
+.skip {
+  position: absolute; left: var(--s3); top: -100px; z-index: 100;
+  background: var(--ink-950); color: var(--paper); padding: 12px 16px; font-weight: 600;
+}
+.skip:focus { top: var(--s3); outline-color: var(--signal); }
+
+.site-header {
+  position: sticky; top: 0; z-index: 50; background: var(--paper);
+  border-bottom: 1px solid transparent; transition: border-color var(--t-mid) var(--ease);
+}
+.site-header.is-scrolled { border-bottom-color: var(--paper-line); }
+.header-in { display: flex; align-items: center; gap: var(--s5); height: var(--header-h); }
+.brand { display: inline-flex; align-items: center; min-height: var(--tap); color: var(--ink-950); }
+.logo { height: 28px; width: auto; color: currentColor; --logo-block: var(--signal); }
+.logo-mono { --logo-block: currentColor; }
+
+.menu-btn {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 10px;
+  min-height: var(--tap); min-width: var(--tap); padding: 0 12px; margin-right: -12px;
+  background: none; border: 0; color: var(--ink-950); font: 600 1rem var(--font-sans); cursor: pointer;
+}
+.menu-btn svg { width: 22px; height: 22px; }
+.menu-btn .i-close { display: none; }
+.site-header.is-open .menu-btn .i-open { display: none; }
+.site-header.is-open .menu-btn .i-close { display: block; }
+
+.site-nav { display: none; }
+.site-header.is-open .site-nav {
+  display: block; position: absolute; left: 0; right: 0; top: 100%;
+  background: var(--paper); border-bottom: 2px solid var(--ink-950);
+  padding: var(--s2) var(--gutter) var(--s6);
+}
+.nav-list { list-style: none; margin: 0; padding: 0; }
+.nav-list a {
+  display: flex; align-items: center; justify-content: space-between; min-height: 60px;
+  border-bottom: 1px solid var(--paper-line); color: var(--ink-950); text-decoration: none;
+  font-stretch: 75%; font-weight: 700; font-size: 2rem; letter-spacing: -.005em;
+}
+.nav-list a[aria-current="page"]::after { content: ""; width: 14px; height: 14px; background: var(--signal); }
+.nav-cta { margin-top: var(--s5); width: 100%; }
+
+@media (min-width: 900px) {
+  .menu-btn { display: none; }
+  .site-nav, .site-header.is-open .site-nav {
+    display: flex; align-items: center; gap: var(--s6); margin-left: auto;
+    position: static; padding: 0; border: 0; background: none;
+  }
+  .nav-list { display: flex; gap: var(--s2); }
+  .nav-list a {
+    position: relative; min-height: var(--tap); padding: 0 12px; border: 0;
+    font-stretch: 100%; font-weight: 500; font-size: 1rem; letter-spacing: 0;
+  }
+  .nav-list a:hover { text-decoration: underline; text-underline-offset: .3em; }
+  .nav-list a[aria-current="page"]::after {
+    position: absolute; left: 12px; right: 12px; bottom: 6px; width: auto; height: 3px;
+  }
+  .nav-cta { margin: 0; width: auto; }
+}
+
+/* =========================================================================
+   Hero (home) with the film plate
+   ========================================================================= */
+.hero { padding-top: clamp(24px, 4vw, 56px); padding-bottom: clamp(48px, 6vw, 96px); }
+.hero-grid { display: grid; gap: var(--s6); }
+.hero-copy { display: flex; flex-direction: column; gap: var(--s5); }
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; color: var(--text-muted); }
+.hero-eyebrow .block { width: 10px; height: 10px; }
+.hero h1 { max-width: 9.5em; }
+.hero .lede { max-width: 34ch; }
+.hero .btn-row { margin-top: var(--s2); }
+@media (min-width: 1024px) {
+  .hero-grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: stretch; }
+  .hero-copy { grid-column: 1 / span 6; justify-content: space-between; padding-block: var(--s2) 0; }
+  .hero-plate { grid-column: 7 / span 6; }
+  .hero h1 { margin-top: var(--s5); }
+}
+
+/* The plate: a 1 : 1 slot. The drawn composition is always there; the film covers it once it plays. */
+.plate {
+  position: relative; aspect-ratio: 1 / 1; width: 100%; overflow: hidden;
+  background: var(--ink-950); color: var(--paper); isolation: isolate;
+}
+.plate-drawing { position: absolute; inset: 0; }
+.plate-drawing svg { width: 100%; height: 100%; }
+.p-label { font-family: var(--font-mono); font-size: 40px; font-weight: 400; letter-spacing: 2.4px; text-transform: uppercase; }
+.p-label.strong { font-weight: 500; }
+.hero-plate { align-self: start; }
+
+.plate-film {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
+  background: var(--ink-950); opacity: 0; visibility: hidden; transition: opacity var(--t-slow) var(--ease);
+}
+.plate.has-poster .plate-film, .plate.is-playing .plate-film { opacity: 1; visibility: visible; }
+.film-toggle {
+  position: absolute; z-index: 3; right: 12px; bottom: 12px; display: none;
+  min-height: var(--tap); padding: 0 14px; border: 0; border-radius: 0; cursor: pointer;
+  background: var(--paper); color: var(--ink-950); font: 500 var(--fs-mono)/1 var(--font-mono);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.film-toggle:focus-visible { outline-color: var(--signal); }
+.plate.is-playing .film-toggle, .plate.is-paused .film-toggle { display: inline-flex; align-items: center; }
+
+/* one-off build of the drawing when the page opens (none with reduced motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .plate-drawing .d-line { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw 1.2s var(--ease) .1s forwards; }
+  .plate-drawing .d-roof { animation: rise .9s var(--ease) .35s both; }
+  .plate-drawing .d-block { animation: drop .7s var(--ease-drop) 1s both; }
+  .plate-drawing .d-labels { animation: fade .5s var(--ease) 1.5s both; }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } }
+@keyframes drop { from { opacity: 0; transform: translateY(-220px); } }
+@keyframes fade { from { opacity: 0; } }
+
+/* =========================================================================
+   Principles (what we stand for)
+   ========================================================================= */
+.split-head { display: grid; gap: var(--s5); margin-bottom: clamp(40px, 5vw, 72px); }
+.split-head .lede { max-width: 44ch; }
+@media (min-width: 1024px) {
+  .split-head { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: end; }
+  .split-head > :first-child { grid-column: 1 / span 7; }
+  .split-head > :last-child { grid-column: 8 / span 5; }
+}
+.principles { list-style: none; margin: 0; padding: 0; display: grid; }
+.principle { padding-block: var(--s5) var(--s6); border-top: 1px solid var(--line); }
+.principle h3 { margin-bottom: var(--s3); }
+.principle p { color: var(--text-soft); max-width: 40ch; }
+@media (min-width: 768px) {
+  .principles { grid-template-columns: 1fr 1fr; column-gap: var(--col-gap); }
+}
+@media (min-width: 1200px) {
+  .principles { grid-template-columns: repeat(4, 1fr); }
+  .principle { border-top: 2px solid var(--rule); padding-top: var(--s4); }
+}
+
+/* =========================================================================
+   Oboko block (Oboko's colours inside Afripro's frame)
+   ========================================================================= */
+.oboko { position: relative; overflow: hidden; }
+.oboko-grid { display: grid; gap: var(--s7); }
+.oboko-id { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s5); }
+.oboko-id img { width: 56px; height: 56px; border-radius: 12px; }
+.oboko-id .h2 { font-size: clamp(2.75rem, 2rem + 3vw, 4.75rem); }
+.oboko-tagline { font-stretch: 75%; font-weight: 600; font-size: var(--fs-h3); line-height: 1.1; color: var(--oboko-mint); margin-bottom: var(--s5); }
+.oboko .prose { color: var(--text-soft); margin-bottom: var(--s6); }
+.oboko-facts .register { margin-bottom: 0; }
+.oboko .register { margin-bottom: var(--s6); }
+.oboko .register dt { color: var(--text-muted); }
+@media (min-width: 1024px) {
+  .oboko-grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: start; }
+  .oboko-text { grid-column: 1 / span 5; }
+  .oboko-facts { grid-column: 7 / span 6; align-self: end; }
+  .oboko-stage--wide { grid-column: 1 / -1; margin-top: var(--s5); }
+  .oboko-stage--wide .stage { padding-bottom: 9%; }
+  .oboko-stage--wide .browser { width: 80%; }
+  .oboko-stage--wide .phone { width: 25%; right: 2%; }
+}
+
+/* screens: a browser plate and a phone, staged together */
+.stage { position: relative; padding-bottom: 18%; }
+.browser {
+  background: #0E241F; border: 1px solid #2F5E52; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6);
+}
+.browser-bar { display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-bottom: 1px solid #2F5E52; }
+.browser-bar i { width: 8px; height: 8px; background: #3E6F62; }
+.browser img { width: 100%; }
+.phone {
+  position: absolute; right: 0; bottom: 0; width: 34%;
+  padding: 7px; background: #05110E; border-radius: 30px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.7), 0 0 0 1px #2F5E52;
+}
+.phone img { border-radius: 23px; width: 100%; }
+.stage .browser { width: 88%; }
+.stage-caption { margin-top: var(--s5); display: flex; flex-wrap: wrap; gap: 4px 24px; color: var(--text-muted); }
+.stage-caption .note { flex-basis: 100%; font-size: var(--fs-sm); }
+@media (min-width: 900px) { .stage-caption .note { flex-basis: auto; margin-left: auto; } }
+@media (max-width: 599px) {
+  .stage { padding-bottom: 30%; }
+  .phone { width: 42%; border-radius: 22px; padding: 5px; }
+  .phone img { border-radius: 17px; }
+  .browser-bar { height: 20px; }
+  .browser-bar i { width: 6px; height: 6px; }
+}
+
+/* =========================================================================
+   Services and their drawings
+   ========================================================================= */
+.services { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: s; }
+.service { display: grid; gap: var(--s4); padding-block: var(--s6); border-top: 2px solid var(--rule); }
+.service-top { display: flex; }
+.service .glyph { width: 72px; height: 72px; color: var(--text); flex: none; }
+.service h3 { max-width: 12ch; }
+.service p { color: var(--text-soft); max-width: 42ch; }
+.service p.for { max-width: none; }
+.service .for { color: var(--text-muted); border-top: 1px solid var(--line); padding-top: var(--s3); margin-top: auto; }
+.service .for b { color: var(--text); font-weight: 500; }
+@media (min-width: 900px) {
+  .services { grid-template-columns: repeat(3, 1fr); column-gap: var(--col-gap); }
+  .service { grid-template-rows: auto auto 1fr auto; padding-bottom: 0; }
+  .service .glyph { width: 88px; height: 88px; }
+  .service .for { min-height: 52px; }
+}
+
+/* =========================================================================
+   Industries schedule
+   ========================================================================= */
+.industries { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--rule); }
+.industry {
+  min-height: 88px; padding: var(--s3) var(--s4) var(--s4); display: flex; flex-direction: column; justify-content: flex-end; gap: var(--s3);
+  border-bottom: 1px solid var(--line);
+}
+.industry:nth-child(odd) { border-right: 1px solid var(--line); }
+.industry b { font-stretch: 75%; font-weight: 700; font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem); line-height: 1.02; display: block; }
+.industry .status { display: flex; align-items: center; gap: 8px; margin-bottom: auto; color: var(--paper); }
+.industry .status .block { width: 10px; height: 10px; }
+.industry.is-shipped { background: var(--ink-950); color: var(--paper); }
+@media (min-width: 900px) {
+  .industries { grid-template-columns: repeat(4, 1fr); }
+  .industry { min-height: 120px; padding: var(--s4) var(--s5) var(--s5); }
+  .industry:nth-child(odd) { border-right: 0; }
+  .industry:not(:nth-child(4n)) { border-right: 1px solid var(--line); }
+}
+.legend-note { display: flex; align-items: flex-start; gap: 8px; margin-top: var(--s4); color: var(--text-muted); font-size: var(--fs-sm); }
+.legend-note .block { width: 10px; height: 10px; margin-top: 5px; background: var(--ink-950); }
+
+/* =========================================================================
+   Vision and mission
+   ========================================================================= */
+.vm { display: grid; gap: var(--s8); }
+.vm-item .mono { display: flex; align-items: center; gap: 10px; color: var(--text-muted); margin-bottom: var(--s5); padding-top: var(--s3); border-top: 2px solid var(--rule); }
+.vm-item .mono .block { width: 10px; height: 10px; }
+.vm-item blockquote { font-stretch: 75%; font-weight: 600; font-size: clamp(2rem, 1.4rem + 2.5vw, 3.5rem); line-height: 1.02; letter-spacing: -.005em; text-wrap: balance; }
+.vm-item:last-child blockquote { color: var(--text-soft); }
+@media (min-width: 1024px) {
+  .vm { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); }
+  .vm-item:first-child { grid-column: 1 / span 6; }
+  .vm-item:last-child { grid-column: 7 / span 6; }
+}
+
+/* =========================================================================
+   Closing call (yellow)
+   ========================================================================= */
+.closing-head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s5); margin-bottom: clamp(40px, 5vw, 72px); }
+.closing .h2 { max-width: 11em; }
+.closing-mark { width: clamp(64px, 14vw, 200px); height: auto; flex: none; color: var(--ink-950); --logo-block: var(--paper); }
+.routes { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--rule); }
+.routes a {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px var(--s4);
+  padding-block: var(--s5); border-bottom: 1px solid var(--line); color: var(--ink-950); text-decoration: none;
+}
+.routes b { font-stretch: 75%; font-weight: 700; font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem); line-height: 1; }
+.routes span { grid-column: 1; color: var(--ink-900); }
+.routes svg { grid-row: 1 / span 2; grid-column: 2; width: 32px; height: 32px; transition: transform var(--t-mid) var(--ease); }
+.routes a:hover svg { transform: translateX(6px); }
+.routes a:hover b { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: .12em; }
+@media (min-width: 900px) {
+  .routes { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: var(--col-gap); border-top: 0; }
+  .routes li { border-top: 2px solid var(--rule); }
+  .routes a { border-bottom: 0; padding-top: var(--s4); min-height: 180px; grid-template-rows: 1fr auto; align-items: start; }
+  .routes svg { grid-row: 2; grid-column: 2; align-self: end; }
+  .routes span { grid-row: 2; align-self: end; }
+}
+
+/* =========================================================================
+   Inner pages
+   ========================================================================= */
+.page-head { padding-top: clamp(32px, 5vw, 80px); padding-bottom: clamp(48px, 6vw, 96px); }
+.page-head-grid { display: grid; gap: var(--s6); }
+.page-head h1 { margin-bottom: var(--s5); max-width: 11em; }
+.h1-sol span { display: block; }
+@media (max-width: 599px) { .h1-sol { font-size: 2.75rem; } }
+@media (min-width: 1024px) {
+  .page-head-grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: end; }
+  .page-head-grid > :first-child { grid-column: 1 / span 7; }
+  .page-head-grid > :last-child { grid-column: 9 / span 4; }
+}
+
+.photo-band figure { position: relative; }
+.photo-band img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+@media (min-width: 900px) { .photo-band img { aspect-ratio: 21 / 9; } }
+.photo-band figcaption { margin-top: var(--s3); color: var(--text-muted); display: flex; gap: var(--s4); flex-wrap: wrap; justify-content: space-between; }
+
+.two-sides { display: grid; gap: 0; border-top: 2px solid var(--rule); }
+.two-sides > div { padding-block: var(--s5) var(--s6); border-bottom: 1px solid var(--line); }
+.two-sides .mono { color: var(--text-muted); margin-bottom: var(--s4); display: block; }
+.two-sides h3 { margin-bottom: var(--s3); }
+.two-sides p { color: var(--text-soft); max-width: 42ch; }
+@media (min-width: 900px) {
+  .two-sides { grid-template-columns: 1fr 1fr; column-gap: var(--col-gap); }
+  .two-sides > div { border-bottom: 0; }
+  .two-sides > div + div { border-left: 1px solid var(--line); padding-left: var(--s5); }
+}
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; }
+.step { display: grid; align-content: start; grid-template-columns: 3.25rem 1fr; gap: 0 var(--s4); padding-block: var(--s5); border-top: 1px solid var(--line); }
+.step .n { color: var(--text-muted); padding-top: 8px; grid-row: span 3; }
+.step h3 { margin-bottom: var(--s2); }
+.step-glyph { width: 64px; height: 64px; margin-bottom: var(--s4); color: var(--text); }
+.step p { color: var(--text-soft); max-width: 40ch; }
+@media (min-width: 900px) {
+  .steps { grid-template-columns: repeat(var(--cols, 3), 1fr); column-gap: var(--col-gap); }
+  .step { grid-template-columns: 1fr; border-top: 2px solid var(--rule); padding-top: var(--s4); }
+  .step .n { grid-row: auto; padding: 0 0 var(--s4); }
+  .step-glyph { width: 88px; height: 88px; }
+}
+
+.careers { display: grid; gap: var(--s5); }
+.careers p { color: var(--text-soft); max-width: 46ch; }
+@media (min-width: 1024px) {
+  .careers { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); }
+  .careers > :first-child { grid-column: 1 / span 5; }
+  .careers > :last-child { grid-column: 7 / span 6; }
+}
+
+/* solutions index (a parts list) */
+.parts { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--rule); }
+.parts a { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s3); min-height: 56px; border-bottom: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 600; }
+.parts a .tag { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); }
+.parts a .tag svg { color: var(--text); margin-left: 8px; }
+.parts a .tag .block { width: 8px; height: 8px; }
+.parts a:hover { background: var(--paper-2); }
+.parts svg { width: 16px; height: 16px; transform: rotate(90deg); }
+
+.svc-row { display: grid; gap: var(--s5); padding-block: var(--s7); border-top: 2px solid var(--rule); }
+.svc-row:first-of-type { border-top: 0; padding-top: 0; }
+.svc-row .svc-a { display: grid; gap: var(--s5); align-content: start; }
+.svc-row .svc-b { display: grid; gap: var(--s5); }
+.svc-row .glyph { width: 72px; height: 72px; }
+.svc-row p { color: var(--text-soft); max-width: 46ch; font-size: var(--fs-lede); line-height: 1.45; }
+.svc-row .register { max-width: 40rem; }
+@media (min-width: 1024px) {
+  .svc-row { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: start; padding-block: var(--s8); }
+  .svc-row .svc-a { grid-column: 1 / span 5; }
+  .svc-row .svc-b { grid-column: 7 / span 6; gap: var(--s6); }
+  .svc-row .glyph { width: 144px; height: 144px; margin-top: var(--s5); }
+}
+
+.flow { list-style: none; margin: 0 0 var(--s7); padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); counter-reset: f; }
+.flow li { display: grid; align-content: start; grid-template-columns: 3.25rem 1fr; gap: 0 var(--s4); padding-block: var(--s4); border-bottom: 1px solid var(--line); }
+.flow .n { color: var(--text-muted); padding-top: 4px; grid-row: span 2; }
+.flow b { font-weight: 600; }
+.flow p { color: var(--text-soft); }
+@media (min-width: 900px) {
+  .flow { grid-template-columns: repeat(4, 1fr); column-gap: var(--col-gap); border-top: 0; }
+  .flow li { grid-template-columns: 1fr; border-top: 2px solid var(--rule); border-bottom: 0; }
+  .flow .n { grid-row: auto; padding-bottom: var(--s5); }
+}
+.oboko-deep .stage-wide { display: grid; gap: var(--s5); }
+.oboko-deep .phones { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.oboko-deep .phones .phone { position: relative; width: 100%; right: auto; bottom: auto; }
+@media (min-width: 1024px) {
+  .oboko-deep .stage-wide { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: end; }
+  .oboko-deep .stage-wide .browser { grid-column: 1 / span 8; }
+  .oboko-deep .phones { grid-column: 9 / span 4; }
+}
+
+/* contact */
+.contact-grid { display: grid; gap: var(--s8); }
+@media (min-width: 1024px) {
+  .contact-grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: start; }
+  .contact-grid > :first-child { grid-column: 1 / span 5; }
+  .contact-grid > :last-child { grid-column: 7 / span 6; }
+}
+.address { font-stretch: 75%; font-weight: 700; font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem); line-height: 1; font-style: normal; margin-bottom: var(--s6); }
+.address .mono { display: block; font-stretch: 100%; margin-bottom: var(--s4); color: var(--text-muted); }
+.big-mail { display: inline-block; padding-block: 10px; font-weight: 600; font-size: var(--fs-lede); overflow-wrap: anywhere; }
+
+.form { display: grid; gap: var(--s5); }
+.form h2 { margin-bottom: var(--s2); }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 600; }
+.field label .opt { font-weight: 400; color: var(--text-muted); }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 48px; padding: 11px 14px; border: 2px solid var(--ink-950); border-radius: 0;
+  background: #FFFDF8; color: var(--ink-950); font: 400 1rem/1.4 var(--font-sans);
+}
+.field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink-950) 50%), linear-gradient(135deg, var(--ink-950) 50%, transparent 50%); background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 44px; }
+.field textarea { min-height: 168px; resize: vertical; }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline-offset: 0; }
+.field [aria-invalid="true"] { border-color: #A1261B; box-shadow: inset 4px 0 0 #A1261B; }
+.field-error { display: none; color: #A1261B; font-weight: 600; font-size: var(--fs-sm); }
+.field-error.is-shown { display: flex; align-items: center; gap: 8px; }
+.field-error.is-shown::before { content: ""; width: 10px; height: 10px; background: #A1261B; flex: none; }
+.form-note { display: flex; gap: var(--s3); padding: var(--s4); background: var(--paper-2); border-left: 4px solid var(--ink-950); color: var(--text-soft); }
+.form-note .block { width: 10px; height: 10px; margin-top: 7px; background: var(--ink-950); }
+.form-status { min-height: 1.5em; font-weight: 600; }
+.form-status:empty { display: none; }
+.form-status { padding: var(--s4); background: var(--ink-950); color: var(--paper); }
+.form-status a { color: var(--paper); }
+
+/* =========================================================================
+   Footer
+   ========================================================================= */
+.site-footer { padding-block: var(--s8) var(--s6); }
+.footer-grid { display: grid; gap: var(--s6); }
+.footer-grid .logo { height: 32px; margin-bottom: var(--s4); --logo-block: var(--signal); }
+.footer-grid h2 { color: var(--text-muted); margin-bottom: var(--s3); }
+.footer-grid ul { list-style: none; margin: 0; padding: 0; }
+.footer-grid li a { display: inline-flex; align-items: center; min-height: var(--tap); color: var(--paper); text-decoration: none; }
+.footer-grid li a:hover { text-decoration: underline; }
+.footer-grid address { font-style: normal; color: var(--text-soft); padding-top: 10px; margin-bottom: 4px; }
+.footer-grid .tagline { color: var(--text-soft); max-width: 22ch; }
+.footer-grid .soft { color: var(--text-soft); }
+.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s3); margin-top: var(--s8); padding-top: var(--s4); border-top: 1px solid var(--line); color: var(--text-muted); }
+.footer-grid { grid-template-columns: 1fr 1fr; }
+.footer-grid > :first-child, .footer-grid > :last-child { grid-column: 1 / -1; }
+@media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; } .footer-grid > :first-child, .footer-grid > :last-child { grid-column: auto; } }
+
+/* ---- reduced motion: transitions off, not shortened ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Shared drawings: the logo (roof + block + FRIPRO) and small icons -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo" viewBox="0 -10 3378 740">
+    <path fill="currentColor" d="M0 720L294 0L366 0L660 720L510 720L330 279L150 720Z"/>
+    <path style="fill: var(--logo-block, #F5B301)" d="M246 552H414V720H246Z"/>
+    <path fill="currentColor" d="M726 720V0H868V720ZM798 434V324H1024V434ZM798 110V0H1034V110ZM1148 720V0H1329Q1391 0 1438 27Q1484 54 1510 102Q1536 149 1536 212Q1536 274 1510 321Q1485 368 1438 394Q1392 421 1329 421H1258V319H1322Q1357 319 1378 291Q1398 263 1398 214Q1398 165 1378 138Q1357 110 1322 110H1290V720ZM1410 720 1270 346H1405L1564 720ZM1648 720V0H1790V720ZM1922 720V0H2103Q2170 0 2218 28Q2267 55 2294 106Q2320 156 2320 226Q2320 295 2294 345Q2268 395 2220 422Q2171 449 2103 449H2032V339H2100Q2139 339 2158 312Q2178 284 2178 224Q2178 165 2158 138Q2139 110 2100 110H2064V720ZM2422 720V0H2603Q2665 0 2712 27Q2758 54 2784 102Q2810 149 2810 212Q2810 274 2784 321Q2759 368 2712 394Q2666 421 2603 421H2532V319H2596Q2631 319 2652 291Q2672 263 2672 214Q2672 165 2652 138Q2631 110 2596 110H2564V720ZM2684 720 2544 346H2679L2838 720ZM3140 730Q3082 730 3038 706Q2993 682 2963 634Q2933 587 2918 518Q2902 448 2902 357Q2902 237 2929 156Q2956 74 3009 32Q3062 -10 3139 -10Q3218 -10 3271 32Q3324 73 3351 155Q3378 237 3378 358Q3378 449 3362 518Q3347 588 3317 635Q3287 682 3242 706Q3198 730 3140 730ZM3139 618Q3172 618 3193 590Q3214 563 3224 505Q3234 447 3234 356Q3234 266 3224 210Q3214 154 3193 128Q3172 102 3139 102Q3107 102 3086 128Q3065 154 3056 210Q3046 265 3046 356Q3046 447 3056 505Q3066 563 3086 590Q3107 618 3139 618Z"/>
+  </symbol>
+  <symbol id="mark" viewBox="0 0 660 720"><path fill="currentColor" d="M0 720L294 0L366 0L660 720L510 720L330 279L150 720Z"/><path style="fill: var(--logo-block, #F5B301)" d="M246 552H414V720H246Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" d="M7 17L17 7M9 7h8v8"/></symbol>
+  <!-- service drawings: built from the logo's square -->
+  <symbol id="g-software" viewBox="0 0 96 96"><g fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="63" width="26" height="26"/><rect x="35" y="63" width="26" height="26"/><rect x="65" y="63" width="26" height="26"/><rect x="20" y="34" width="26" height="26"/><rect x="50" y="34" width="26" height="26"/></g><rect style="fill: var(--glyph-fill, #F5B301)" x="35" y="5" width="26" height="26"/><rect x="35" y="5" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5"/></symbol>
+  <symbol id="g-transform" viewBox="0 0 96 96"><rect x="5" y="35" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="5 4"/><path d="M38 48h17M49 41l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><rect style="fill: var(--glyph-fill, #F5B301)" x="64" y="35" width="27" height="27"/><rect x="64" y="35" width="27" height="27" fill="none" stroke="currentColor" stroke-width="2.5"/></symbol>
+  <symbol id="g-design" viewBox="0 0 96 96"><path d="M5 89H91" stroke="currentColor" stroke-width="2.5"/><rect x="31" y="47" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="5 4"/></symbol>
+  <symbol id="g-build" viewBox="0 0 96 96"><path d="M5 89H91" stroke="currentColor" stroke-width="2.5"/><rect x="31" y="53" width="34" height="34" fill="currentColor"/><path d="M48 9V39M38 29l10 10 10-10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></symbol>
+  <symbol id="g-operate" viewBox="0 0 96 96"><path d="M5 89H91" stroke="currentColor" stroke-width="2.5"/><rect x="31" y="53" width="34" height="34" style="fill: var(--glyph-fill, #F5B301)"/><rect x="31" y="53" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M22 36a28 28 0 0 1 52 0" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M68 28l6 8 8-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></symbol>
+  <symbol id="g-business" viewBox="0 0 96 96"><g fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="9" width="86" height="18"/><rect x="5" y="39" width="56" height="18"/></g><rect style="fill: var(--glyph-fill, #F5B301)" x="5" y="69" width="27" height="18"/><rect x="5" y="69" width="27" height="18" fill="none" stroke="currentColor" stroke-width="2.5"/></symbol>
+</svg>
+
+<header class="site-header" id="top">
+  <div class="wrap header-in">
+    <a class="brand" href="#/" aria-label="Afripro, home"><svg class="logo logo-mono" viewBox="0 -10 3378 740" aria-hidden="true"><use href="#logo"/></svg></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span>Menu</span>
+      <svg class="i-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      <svg class="i-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="#/about">About</a></li>
+        <li><a href="#/solutions">Solutions</a></li>
+        <li><a href="#/contact">Contact</a></li>
+      </ul>
+      <a class="btn btn-ink btn-sm nav-cta" href="#/contact">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1"></main>
+<noscript><p class="wrap section">This site needs JavaScript to show its pages. Write to Afripro at <a href="mailto:info@afriprosolutions.com">info@afriprosolutions.com</a>.</p></noscript>
+
+<footer class="site-footer tone-dark">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <svg class="logo" viewBox="0 -10 3378 740" role="img" aria-label="Afripro"><use href="#logo"/></svg>
+        <p class="tagline">Building technology solutions for Africa.</p>
+      </div>
+      <nav aria-label="Footer">
+        <h2 class="mono">Company</h2>
+        <ul>
+          <li><a href="#/about">About</a></li>
+          <li><a href="#/solutions">Solutions</a></li>
+          <li><a href="#/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="mono">Product</h2>
+        <ul>
+          <li><a href="oboko/">Oboko</a></li>
+        </ul>
+        <p class="soft">obokoapp.com</p>
+      </div>
+      <div>
+        <h2 class="mono">Office</h2>
+        <address>109 Awolowo Road<br>South West Ikoyi, Lagos<br>Nigeria</address>
+        <ul><li><a href="mailto:info@afriprosolutions.com">info@afriprosolutions.com</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-base mono">
+      <span>© 2026 Afripro Innovative Solutions Limited</span>
+      <span>www.afriprosolutions.com</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     PAGES. Each <template> is one route; the router clones it into <main>.
+     ===================================================================== -->
+
+<!-- ============================== HOME ============================== -->
+<template id="page-home" data-title="Afripro · Building technology solutions for Africa">
+  <section class="hero tone-paper" aria-labelledby="h1-home">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="hero-eyebrow mono"><span class="block" aria-hidden="true"></span>Technology company · Lagos, Nigeria</p>
+          <h1 id="h1-home" class="display" tabindex="-1">Building technology solutions for Africa.</h1>
+          <div>
+            <p class="lede">We design, build and operate practical software for everyday problems, for businesses, governments and communities. Our first product, Oboko, is live in Nigeria.</p>
+            <div class="btn-row" style="margin-top: 24px">
+              <a class="btn btn-primary" href="#/contact">Get in touch <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="btn btn-line" href="#/#oboko">See Oboko</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILM SLOT · 1 : 1. Static drawing below; the film (assets/video/afripro-hero.mp4, poster
+             afripro-hero.webp) covers it once the files exist. See DESIGN.md §6. -->
+        <figure class="hero-plate">
+          <!-- FILM SLOT · 1 : 1. The drawing below is the fallback and the film's first and last frame
+               (DESIGN.md §6). Labels are SVG text, so they scale with the plate. -->
+          <div class="plate" data-film>
+          <div class="plate-drawing" aria-hidden="true">
+            <svg viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet">
+              <rect width="1080" height="1080" fill="#0B1230"/>
+              <rect x="40" y="40" width="1000" height="1000" fill="none" stroke="#1B275C" stroke-width="2"/>
+              <!-- construction: centreline and the legs carried up to their meeting point -->
+              <g fill="none" stroke="#5566B5" stroke-width="2">
+                <path class="d-line" d="M540 130V820" stroke-dasharray="18 8 4 8"/>
+                <path d="M511 244L540 173L569 244" stroke-dasharray="8 7"/>
+              </g>
+              <!-- ground: solid under the whole roof (Nigeria, today), dashed beyond it (Africa, the aim) -->
+              <path class="d-line" d="M90 820H820" stroke="#F3F0E7" stroke-width="3" fill="none"/>
+              <path d="M836 820H990" stroke="#F3F0E7" stroke-width="3" fill="none" stroke-dasharray="14 12"/>
+              <g stroke="#A3ADDA" stroke-width="2"><path d="M90 820v16M180 820v16M270 820v16M360 820v16M450 820v16M630 820v16M720 820v16M810 820v16"/></g>
+              <!-- the roof (Afripro) and the block (Oboko) -->
+              <path class="d-roof" fill="#F3F0E7" d="M276 820L511.2 244L568.8 244L804 820L684 820L540 467.2L396 820Z"/>
+              <rect class="d-block" x="472.8" y="685.6" width="134.4" height="134.4" fill="#F5B301"/>
+              <!-- leaders and labels: 40 px in the 1080 frame -->
+              <g class="d-labels">
+                <g stroke="#A3ADDA" stroke-width="2" fill="none"><path d="M652 420H774"/><path d="M540 820V864"/></g>
+                <text class="p-label" x="1015" y="98" text-anchor="end" fill="#A3ADDA">6.45° N 3.42° E</text>
+                <text class="p-label strong" x="790" y="434" fill="#F3F0E7">Afripro</text>
+                <text class="p-label strong" x="540" y="906" text-anchor="middle" fill="#F5B301">Oboko · live</text>
+                <text class="p-label strong" x="90" y="906" fill="#C9CFEB">Nigeria</text>
+                <text class="p-label" x="90" y="958" fill="#A3ADDA">today</text>
+                <text class="p-label strong" x="990" y="906" text-anchor="end" fill="#C9CFEB">Africa</text>
+                <text class="p-label" x="990" y="958" text-anchor="end" fill="#A3ADDA">the aim</text>
+              </g>
+            </svg>
+          </div>
+          <video class="plate-film" src="assets/video/afripro-hero.mp4" data-poster="assets/video/afripro-hero.webp"
+                 muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+          <button class="film-toggle" type="button" aria-pressed="false">Pause film</button>
+          </div>
+          <figcaption class="visually-hidden">Drawing of the Afripro mark: Afripro is the roof; Oboko is the yellow block under it, live. The solid ground is Nigeria, today; the dashed ground beyond it is Africa, the aim.</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section tone-paper" aria-labelledby="h-stand" style="padding-top: 0">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>What we stand for</span></p>
+      <div class="split-head">
+        <h2 id="h-stand" class="h2">Four things we hold to.</h2>
+        <p class="lede">They decide what we take on, how we build it and how long we stay with it.</p>
+      </div>
+      <ol class="principles" role="list">
+        <li class="principle"><h3 class="h3">Practical first</h3><p>We start from a real problem and the people who have it. If a simpler tool solves it, we build the simpler tool.</p></li>
+        <li class="principle"><h3 class="h3">Built here, for here</h3><p>Built by Africans for African challenges. Local knowledge shapes what we make and how it works from day to day.</p></li>
+        <li class="principle"><h3 class="h3">Trust is the standard</h3><p>Security, reliability and quality held to international standards, because people rely on what we build with their money and their plans.</p></li>
+        <li class="principle"><h3 class="h3">Made to scale, here to stay</h3><p>Designed to grow across industries and countries, and run as a long-term partnership, not handed over and left.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section oboko tone-oboko" id="sec-oboko" aria-labelledby="h-oboko">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Our flagship product</span><span class="end">Live</span></p>
+      <div class="oboko-grid">
+        <div class="oboko-text">
+          <div class="oboko-id">
+            <img src="assets/img/oboko-logo-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
+            <h2 id="h-oboko" class="h2" tabindex="-1">Oboko</h2>
+          </div>
+          <p class="oboko-tagline">Book better. Travel smarter.</p>
+          <p class="prose">An accommodation marketplace that connects travellers with verified hotels, apartments and shortlets. Every listing is checked before a guest sees it.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="oboko/">Visit Oboko <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+            <a class="btn btn-line" href="#/solutions#oboko">Oboko in depth</a>
+          </div>
+        </div>
+        <div class="oboko-facts">
+          <dl class="register">
+            <dt class="mono">Status</dt><dd><span class="live"><span class="block" aria-hidden="true"></span>Live at obokoapp.com</span></dd>
+            <dt class="mono">Where</dt><dd>Lagos, Abuja and other Nigerian cities<small>Built to grow across Africa</small></dd>
+            <dt class="mono">Listings</dt><dd>Checked first: the Oboko Verified Standard</dd>
+            <dt class="mono">Payments</dt><dd>Paystack and Flutterwave</dd>
+            <dt class="mono">Reviews</dt><dd>Only after a completed stay</dd>
+          </dl>
+        </div>
+        <figure class="oboko-stage oboko-stage--wide">
+          <div class="stage">
+            <div class="browser">
+              <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+              <img src="assets/img/oboko-desk-home.webp" width="1920" height="1200" loading="lazy" decoding="async"
+                   alt="Oboko home page on a desktop screen: the headline ‘Every stay checked in person’, a search for city, dates and guests, and the inspection report of a listed apartment in Ikoyi.">
+            </div>
+            <div class="phone">
+              <img src="assets/img/oboko-phone-stay.webp" width="563" height="1218" loading="lazy" decoding="async"
+                   alt="An Oboko listing on a phone: Lagoonside Boutique Hotel in Victoria Island, marked Verified, with the total price and a Reserve button.">
+            </div>
+          </div>
+          <figcaption class="stage-caption">
+            <span class="mono">Home, desktop · A listing, phone</span>
+            <span class="note">Screens from the new Oboko design. Listings shown are examples.</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tone-paper" aria-labelledby="h-services">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Services</span></p>
+      <div class="split-head">
+        <h2 id="h-services" class="h2">Three ways to work with us.</h2>
+        <p class="lede">Oboko is what we build for ourselves. We bring the same work to other organisations.</p>
+      </div>
+      <ol class="services" role="list">
+        <li class="service">
+          <div class="service-top"><svg class="glyph" aria-hidden="true"><use href="#g-software"/></svg></div>
+          <h3 class="h3">Software Development</h3>
+          <p>Custom software designed around how your people and customers work, built to international standards and kept running after launch.</p>
+          <p class="for mono">For <b>businesses, startups, enterprises</b></p>
+        </li>
+        <li class="service">
+          <div class="service-top"><svg class="glyph" aria-hidden="true"><use href="#g-transform"/></svg></div>
+          <h3 class="h3">Digital Transformation</h3>
+          <p>We look at how your organisation runs today and move the slow, paper-bound steps onto software people actually use.</p>
+          <p class="for mono">For <b>organisations and government</b></p>
+        </li>
+        <li class="service">
+          <div class="service-top"><svg class="glyph" aria-hidden="true"><use href="#g-business"/></svg></div>
+          <h3 class="h3">Business Solutions</h3>
+          <p>Technology aimed at one clear gain: fewer manual steps, faster answers and clearer numbers to decide on.</p>
+          <p class="for mono">For <b>SMEs and enterprises</b></p>
+        </li>
+      </ol>
+      <p style="margin-top: 40px"><a class="arrow-link" href="#/solutions">All solutions <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    </div>
+  </section>
+
+  <section class="section tone-sunken" aria-labelledby="h-ind">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Industries</span></p>
+      <div class="split-head">
+        <h2 id="h-ind" class="h2">Where we want to build.</h2>
+        <p class="lede">Eight fields where everyday problems are worth solving with software. Travel and hospitality is the one with a live product: Oboko.</p>
+      </div>
+      <!--INDUSTRIES-->
+    </div>
+  </section>
+
+  <!--VISION-->
+  <!--CLOSING-->
+</template>
+
+<!-- ============================== ABOUT ============================== -->
+<template id="page-about" data-title="About · Afripro">
+  <section class="page-head tone-paper" aria-labelledby="h1-about">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>About</span></p>
+      <div class="page-head-grid">
+        <div>
+          <h1 id="h1-about" class="display" tabindex="-1">A technology company from Lagos.</h1>
+          <p class="lede">Afripro Innovative Solutions Limited designs, builds and operates technology for Africa’s everyday challenges. We combine technology, creativity and local knowledge, and we work for businesses, governments and communities.</p>
+        </div>
+        <dl class="register">
+          <dt class="mono">Company</dt><dd>Afripro Innovative Solutions Limited</dd>
+          <dt class="mono">Office</dt><dd>109&nbsp;Awolowo&nbsp;Road, South&nbsp;West&nbsp;Ikoyi, Lagos</dd>
+          <dt class="mono">We build</dt><dd>Our own products, starting with Oboko, and software for other organisations</dd>
+          <dt class="mono">First product</dt><dd><span class="live"><span class="block" aria-hidden="true"></span>Oboko, live at obokoapp.com</span></dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="photo-band tone-paper" aria-label="Lagos">
+    <div class="wrap">
+      <figure>
+        <img src="assets/img/lagos-falomo-960.webp" srcset="assets/img/lagos-falomo-960.webp 960w, assets/img/lagos-falomo-1800.webp 1800w"
+             sizes="(min-width: 1376px) 1280px, calc(100vw - 64px)" width="1800" height="1100" loading="lazy" decoding="async"
+             alt="Falomo Bridge in Ikoyi, Lagos, seen from above, with the lagoon and the city behind it.">
+        <figcaption class="mono"><span>Falomo Bridge, Ikoyi, Lagos</span><span>Photo: Malik Buraimoh, Unsplash</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section tone-paper" aria-labelledby="h-who">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Who we are</span></p>
+      <div class="split-head">
+        <h2 id="h-who" class="h2">One company, two kinds of work.</h2>
+        <p class="lede">Afripro is the company behind Oboko. What we build for others is held to the same standard as the products we run ourselves.</p>
+      </div>
+      <div class="two-sides">
+        <div>
+          <span class="mono">Products</span>
+          <h3 class="h3">We build and run our own</h3>
+          <p>Products we design, build and operate ourselves, for problems we see every day. Oboko, for verified stays in Nigeria, is the first.</p>
+        </div>
+        <div>
+          <span class="mono">Services</span>
+          <h3 class="h3">We build for others</h3>
+          <p>Software development, digital transformation and business solutions for organisations that want technology to do real work for them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--VISION-->
+
+  <section class="section tone-paper" aria-labelledby="h-how">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>How we work</span></p>
+      <div class="split-head">
+        <h2 id="h-how" class="h2">Design. Build. Operate.</h2>
+        <p class="lede">We stay with what we make. Shipping is the middle of the work, not the end of it.</p>
+      </div>
+      <ol class="steps" role="list">
+        <li class="step"><span class="n mono">01</span><svg class="glyph step-glyph" aria-hidden="true"><use href="#g-design"/></svg><h3 class="h3">Design</h3><p>We start with the people who will use the software and the problem they have, and agree what a good result looks like before we write code.</p></li>
+        <li class="step"><span class="n mono">02</span><svg class="glyph step-glyph" aria-hidden="true"><use href="#g-build"/></svg><h3 class="h3">Build</h3><p>We build in working steps you can see and test, to international standards of security and quality.</p></li>
+        <li class="step"><span class="n mono">03</span><svg class="glyph step-glyph" aria-hidden="true"><use href="#g-operate"/></svg><h3 class="h3">Operate</h3><p>We keep what we ship running and keep improving it after launch. That is how we run Oboko.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section tone-paper" aria-labelledby="h-careers" style="padding-top: 0">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Careers</span></p>
+      <div class="careers">
+        <div>
+          <h2 id="h-careers" class="h2">Work with us</h2>
+        </div>
+        <div>
+          <p class="lede" style="max-width: 40ch">There are no open roles listed at present.</p>
+          <p class="prose" style="margin-top: 12px">If you want to build technology for Africa, write to us at <a href="mailto:info@afriprosolutions.com">info@afriprosolutions.com</a> and tell us what you do.</p>
+          <p style="margin-top: 24px"><a class="arrow-link" href="#/contact?topic=careers">Write to us <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--CLOSING-->
+</template>
+
+<!-- ============================== SOLUTIONS ============================== -->
+<template id="page-solutions" data-title="Solutions · Afripro">
+  <section class="page-head tone-paper" aria-labelledby="h1-sol">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Solutions</span></p>
+      <div class="page-head-grid">
+        <div>
+          <h1 id="h1-sol" class="display h1-sol" tabindex="-1"><span>One product live.</span> <span>Three ways to work with us.</span></h1>
+          <p class="lede">We build our own products, starting with Oboko, and software for other organisations. Oboko comes first because it is live; the services bring the same work to yours.</p>
+        </div>
+        <nav aria-label="On this page">
+          <ol class="parts" role="list">
+            <li><a href="#/solutions#oboko"><span>Oboko</span><span class="tag mono"><span class="block" aria-hidden="true"></span>Live <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+            <li><a href="#/solutions#software"><span>Software Development</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#/solutions#transformation"><span>Digital Transformation</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#/solutions#business"><span>Business Solutions</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#/solutions#industries"><span>Industries</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="section oboko oboko-deep tone-oboko" id="sec-oboko" aria-labelledby="h-oboko-deep">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Product</span><span class="end">Live</span></p>
+      <div class="oboko-grid">
+        <div class="oboko-text">
+          <div class="oboko-id">
+            <img src="assets/img/oboko-logo-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
+            <h2 id="h-oboko-deep" class="h2" tabindex="-1">Oboko</h2>
+          </div>
+          <p class="oboko-tagline">Book better. Travel smarter.</p>
+          <p class="prose">Our flagship travel technology platform. Oboko connects travellers with verified hotels, apartments and shortlets, and checks every listing before a guest sees it.</p>
+        </div>
+        <div class="oboko-facts">
+          <dl class="register" style="margin: 0">
+            <dt class="mono">Status</dt><dd><span class="live"><span class="block" aria-hidden="true"></span>Live at obokoapp.com</span></dd>
+            <dt class="mono">Where</dt><dd>Lagos, Abuja and other Nigerian cities<small>Built to grow across Africa</small></dd>
+            <dt class="mono">Standard</dt><dd>Oboko Verified Standard: every listing is checked first</dd>
+            <dt class="mono">Payments</dt><dd>Paystack and Flutterwave</dd>
+            <dt class="mono">Reviews</dt><dd>Only after a completed stay</dd>
+            <dt class="mono">Apps</dt><dd>iOS and Android announced</dd>
+          </dl>
+        </div>
+      </div>
+
+      <h3 class="h3" style="margin: 72px 0 24px">How a stay reaches a guest</h3>
+      <ol class="flow" role="list">
+        <li><span class="n mono">01</span><b>Listed</b><p>A host lists a hotel, apartment or shortlet.</p></li>
+        <li><span class="n mono">02</span><b>Checked</b><p>It is checked against the Oboko Verified Standard before any guest sees it.</p></li>
+        <li><span class="n mono">03</span><b>Booked</b><p>Guests book and pay through Paystack or Flutterwave.</p></li>
+        <li><span class="n mono">04</span><b>Reviewed</b><p>Only guests who completed a stay can leave a review.</p></li>
+      </ol>
+
+      <figure>
+        <div class="stage-wide">
+          <div class="browser">
+            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <img src="assets/img/oboko-desk-search.webp" width="1920" height="1200" loading="lazy" decoding="async"
+                 alt="Oboko search results for Lagos on a desktop screen: filters for 24-hour power, water, security and Wi-Fi, verified listings with photos, and a map.">
+          </div>
+          <div class="phones">
+            <div class="phone"><img src="assets/img/oboko-phone-home.webp" width="563" height="1218" loading="lazy" decoding="async" alt="Oboko home page on a phone, with the search for city, dates and guests."></div>
+            <div class="phone"><img src="assets/img/oboko-phone-book.webp" width="563" height="1218" loading="lazy" decoding="async" alt="Step 1 of 3 of an Oboko booking on a phone: dates, guests, room and the total price before payment."></div>
+          </div>
+        </div>
+        <figcaption class="stage-caption">
+          <span class="mono">Search, desktop · Home and booking, phone</span>
+          <span class="note">Screens from the new Oboko design. Listings shown are examples.</span>
+        </figcaption>
+      </figure>
+      <div class="btn-row" style="margin-top: 40px">
+        <a class="btn btn-primary" href="oboko/">Visit Oboko <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tone-paper" aria-labelledby="h-svc">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Services</span></p>
+      <h2 id="h-svc" class="h2" style="margin-bottom: 56px; max-width: 12em">The same work, for your organisation.</h2>
+
+      <article class="svc-row" id="sec-software" aria-labelledby="h-software">
+        <div class="svc-a">
+          <h3 id="h-software" class="h2" tabindex="-1">Software Development</h3>
+          <svg class="glyph" aria-hidden="true"><use href="#g-software"/></svg>
+        </div>
+        <div class="svc-b">
+          <p>Custom software designed around how your people and customers work, built to international standards and kept running after launch.</p>
+          <dl class="register"><dt class="mono">For</dt><dd>Businesses, startups and enterprises</dd><dt class="mono">On Oboko</dt><dd>Search, booking and payments with Paystack and Flutterwave</dd><dt class="mono">You bring</dt><dd>The problem, and the people who have it</dd></dl>
+          <p><a class="arrow-link" href="#/contact?topic=software">Discuss a software project <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+        </div>
+      </article>
+
+      <article class="svc-row" id="sec-transformation" aria-labelledby="h-transformation">
+        <div class="svc-a">
+          <h3 id="h-transformation" class="h2" tabindex="-1">Digital Transformation</h3>
+          <svg class="glyph" aria-hidden="true"><use href="#g-transform"/></svg>
+        </div>
+        <div class="svc-b">
+          <p>We look at how your organisation runs today and move the slow, paper-bound steps onto software people actually use.</p>
+          <dl class="register"><dt class="mono">For</dt><dd>Organisations and government</dd><dt class="mono">You bring</dt><dd>The way the work is done today</dd></dl>
+          <p><a class="arrow-link" href="#/contact?topic=transformation">Discuss a transformation <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+        </div>
+      </article>
+
+      <article class="svc-row" id="sec-business" aria-labelledby="h-business">
+        <div class="svc-a">
+          <h3 id="h-business" class="h2" tabindex="-1">Business Solutions</h3>
+          <svg class="glyph" aria-hidden="true"><use href="#g-business"/></svg>
+        </div>
+        <div class="svc-b">
+          <p>Technology aimed at one clear gain: fewer manual steps, faster answers and clearer numbers to decide on.</p>
+          <dl class="register"><dt class="mono">For</dt><dd>SMEs and enterprises</dd><dt class="mono">You bring</dt><dd>The task that takes too long</dd></dl>
+          <p><a class="arrow-link" href="#/contact?topic=business">Discuss a business solution <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section tone-sunken" id="sec-industries" aria-labelledby="h-ind-sol">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Industries</span></p>
+      <div class="split-head">
+        <h2 id="h-ind-sol" class="h2" tabindex="-1">Where we want to build.</h2>
+        <p class="lede">Eight fields where everyday problems are worth solving with software. Travel and hospitality is the one with a live product: Oboko.</p>
+      </div>
+      <!--INDUSTRIES-->
+    </div>
+  </section>
+
+  <!--CLOSING-->
+</template>
+
+<!-- ============================== CONTACT ============================== -->
+<template id="page-contact" data-title="Contact · Afripro">
+  <section class="page-head tone-paper" aria-labelledby="h1-contact" style="padding-bottom: 0">
+    <div class="wrap">
+      <p class="sheet-head mono"><span>Contact</span></p>
+      <h1 id="h1-contact" class="display" tabindex="-1">Get in touch.</h1>
+      <p class="lede">Tell us what you want to build, change or partner on. Write to us directly, or use the form to prepare the e-mail.</p>
+    </div>
+  </section>
+
+  <section class="section tone-paper" style="padding-top: 56px" aria-label="Office and e-mail form">
+    <div class="wrap contact-grid">
+      <div>
+        <address class="address"><span class="mono">Office</span>109 Awolowo Road<br>South West Ikoyi<br>Lagos, Nigeria</address>
+        <dl class="register register--stack">
+          <dt class="mono">E-mail</dt><dd><a class="big-mail" href="mailto:info@afriprosolutions.com">info@afriprosolutions.com</a></dd>
+          <dt class="mono">Product</dt><dd>Oboko · obokoapp.com</dd>
+        </dl>
+      </div>
+
+      <form class="form" id="contact-form" novalidate aria-labelledby="h-form">
+        <h2 id="h-form" class="h3">Prepare an e-mail</h2>
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name">
+          <p class="field-error" id="e-name">Please enter your name.</p>
+        </div>
+        <div class="field">
+          <label for="f-email">Your e-mail</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email">
+          <p class="field-error" id="e-email">Please enter your e-mail address.</p>
+        </div>
+        <div class="field">
+          <label for="f-org">Organisation <span class="opt">(optional)</span></label>
+          <input id="f-org" name="org" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-topic">What is it about?</label>
+          <select id="f-topic" name="topic">
+            <option value="software">A software project</option>
+            <option value="transformation">Digital transformation</option>
+            <option value="business">Business solutions</option>
+            <option value="partnership">Partnership</option>
+            <option value="oboko">Oboko</option>
+            <option value="careers">Careers</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-msg">Your message</label>
+          <textarea id="f-msg" name="message" required aria-describedby="e-message"></textarea>
+          <p class="field-error" id="e-message">Please write a short message.</p>
+        </div>
+        <p class="form-note" id="form-note"><span class="block" aria-hidden="true"></span><span>This form sends nothing by itself. The button opens a new e-mail to <b>info@afriprosolutions.com</b> in your mail app, filled in with what you wrote above. You send it from there.</span></p>
+        <div><button class="btn btn-primary" type="submit" aria-describedby="form-note">Open e-mail draft <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+</template>
+
+<!-- ============================== SHARED PARTS ============================== -->
+<template id="part-industries">
+  <ol class="industries" role="list">
+    <li class="industry is-shipped"><span class="status mono"><span class="block" aria-hidden="true"></span>Oboko · live</span><b>Travel &amp; Hospitality</b></li>
+    <li class="industry"><b>Finance &amp; FinTech</b></li>
+    <li class="industry"><b>Education</b></li>
+    <li class="industry"><b>Healthcare</b></li>
+    <li class="industry"><b>Agriculture</b></li>
+    <li class="industry"><b>Logistics</b></li>
+    <li class="industry"><b>Government</b></li>
+    <li class="industry"><b>SMEs &amp; Enterprises</b></li>
+  </ol>
+  <p class="legend-note"><span class="block" aria-hidden="true"></span>Live product. The other seven are fields we want to build for.</p>
+</template>
+
+<template id="part-vision">
+  <section class="section tone-dark" aria-labelledby="h-vm">
+    <div class="wrap">
+      <h2 id="h-vm" class="visually-hidden">Vision and mission</h2>
+      <div class="vm">
+        <div class="vm-item">
+          <p class="mono"><span class="block" aria-hidden="true"></span>Vision</p>
+          <blockquote>To become Africa’s leading technology company creating digital solutions that improve everyday life.</blockquote>
+        </div>
+        <div class="vm-item">
+          <p class="mono"><span class="block" aria-hidden="true"></span>Mission</p>
+          <blockquote>To solve African challenges through innovative technology, strategic partnerships and world-class digital products.</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<template id="part-closing">
+  <section class="section closing tone-signal" aria-labelledby="h-close">
+    <div class="wrap">
+      <div class="closing-head">
+        <h2 id="h-close" class="h2">Let’s build Africa’s future together.</h2>
+        <svg class="closing-mark" viewBox="0 0 660 720" aria-hidden="true"><use href="#mark"/></svg>
+      </div>
+      <ul class="routes" role="list">
+        <li><a href="#/contact?topic=transformation"><b>Transform your business</b><span>Tell us where the work is slow.</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#/contact?topic=partnership"><b>Partner with us</b><span>Build or grow a product with us.</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#/solutions#oboko"><b>See our first product</b><span>Oboko, live in Nigeria.</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      </ul>
+    </div>
+  </section>
+</template>
+
+<script>
+/* =========================================================================
+   Afripro · router, menu, film slot, contact form. No libraries.
+   Routes: #/  #/about  #/solutions  #/contact  (+ #/<page>#<section>, e.g. #/solutions#software, #/contact?topic=<id>)
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var ROUTES = { '': 'home', about: 'about', solutions: 'solutions', contact: 'contact' };
+  var EMAIL = 'info@afriprosolutions.com';
+  var main = document.getElementById('main');
+  var header = document.querySelector('.site-header');
+  var menuBtn = header.querySelector('.menu-btn');
+  var current = null;      // name of the page on screen
+  var firstRender = true;
+  var lastSection = null;   // the section the last route scrolled to
+  var built = {};          // pages built earlier and not on screen, by name
+
+  /* ---------- routing ---------- */
+  function parse() {   // "#/solutions#software" → page solutions, section software; "#/contact?topic=x" → params
+    var raw = location.hash.replace(/^#/, '');
+    if (raw.charAt(0) !== '/') raw = '/';
+    var h = raw.indexOf('#');
+    var section = h < 0 ? null : raw.slice(h + 1) || null;
+    if (h >= 0) raw = raw.slice(0, h);
+    var q = raw.indexOf('?');
+    var path = q < 0 ? raw : raw.slice(0, q);
+    var params = new URLSearchParams(q < 0 ? '' : raw.slice(q + 1));
+    var parts = path.split('/').filter(Boolean);
+    return { page: parts.length > 1 ? null : ROUTES[parts[0] || ''], section: section, params: params };
+  }
+
+  function fill(root) {   // shared parts are written once and placed where the comments mark them
+    ['industries', 'vision', 'closing'].forEach(function (name) {
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_COMMENT);
+      var marks = [];
+      while (walker.nextNode()) if (walker.currentNode.nodeValue === name.toUpperCase()) marks.push(walker.currentNode);
+      marks.forEach(function (m) {
+        m.parentNode.replaceChild(document.getElementById('part-' + name).content.cloneNode(true), m);
+      });
+    });
+    return root;
+  }
+
+  function render() {
+    var r = parse();
+    if (!r.page) { location.replace('#/'); return; }
+    closeMenu(false);
+    var changed = r.page !== current;
+    if (changed) {
+      // A page built once is kept (detached) while another is shown: its film keeps its download,
+      // a half-filled form keeps its text, and nothing is built twice.
+      if (current) { var keep = document.createDocumentFragment(); while (main.firstChild) keep.appendChild(main.firstChild); built[current] = keep; }
+      var tpl = document.getElementById('page-' + r.page), fresh = !built[r.page];
+      main.replaceChildren(built[r.page] || fill(tpl.content.cloneNode(true)));
+      delete built[r.page];
+      document.title = tpl.dataset.title;
+      current = r.page;
+      document.querySelectorAll('.nav-list a').forEach(function (a) {
+        if (a.getAttribute('href') === '#/' + r.page) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
+      });
+      if (fresh && r.page === 'home') initFilm(main.querySelector('[data-film]'));
+      if (fresh && r.page === 'contact') initForm(main.querySelector('#contact-form'));
+    }
+    if (r.page === 'contact') {
+      var topic = r.params.get('topic'), sel = main.querySelector('#f-topic');
+      if (topic && sel && sel.querySelector('option[value="' + topic + '"]')) sel.value = topic;
+    }
+    var target = r.section && main.querySelector('#sec-' + r.section);
+    if (target) {
+      var focusEl = target.querySelector('[tabindex="-1"]') || target;
+      target.scrollIntoView({ block: 'start' });
+      focusEl.focus({ preventScroll: true });
+    } else if (changed || lastSection) {
+      window.scrollTo(0, 0);
+      if (!firstRender) main.querySelector('h1').focus({ preventScroll: true });
+    }
+    firstRender = false;
+    lastSection = target ? r.section : null;
+  }
+
+  window.addEventListener('hashchange', render);
+
+  // skip link: move focus without touching the route
+  document.querySelector('.skip').addEventListener('click', function (e) {
+    e.preventDefault();
+    var h1 = main.querySelector('h1');
+    (h1 || main).focus();
+  });
+
+  /* ---------- header: menu and scroll line ---------- */
+  function closeMenu(returnFocus) {
+    if (!header.classList.contains('is-open')) return;
+    header.classList.remove('is-open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menuBtn.querySelector('span').textContent = 'Menu';
+    if (returnFocus) menuBtn.focus();
+  }
+  menuBtn.addEventListener('click', function () {
+    var open = !header.classList.contains('is-open');
+    header.classList.toggle('is-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.querySelector('span').textContent = open ? 'Close' : 'Menu';
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(true); });
+  document.addEventListener('click', function (e) {
+    if (header.classList.contains('is-open') && !header.contains(e.target)) closeMenu(false);
+  });
+  header.querySelector('.site-nav').addEventListener('click', function (e) {
+    if (e.target.closest('a')) closeMenu(false);
+  });
+  var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---------- the film slot ----------
+     The drawn composition is always on the page. The film files are made separately; until they
+     exist we must not show a broken video. One probe of the poster tells us whether they were
+     delivered (a missing file costs exactly one failed request). Only then does the poster go
+     on the video, and only on wide screens without reduced motion does the film play. A failing
+     video (error event) puts the drawing back. */
+  var film = { poster: null };   // null = not probed yet, true / false after the probe
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var wide = window.matchMedia('(min-width: 768px)');
+
+  function initFilm(plate) {
+    if (!plate) return;
+    var video = plate.querySelector('video');
+    var toggle = plate.querySelector('.film-toggle');
+    var posterUrl = video.dataset.poster;
+
+    function showPoster() { video.poster = posterUrl; plate.classList.add('has-poster'); }
+    function fail() {
+      plate.classList.remove('has-poster', 'is-playing', 'is-paused');
+      video.removeAttribute('src'); video.load();
+    }
+    var userPaused = false, timer = null, inView = false;
+    function play() {
+      if (reduce.matches || !wide.matches || userPaused || !inView) return;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () { /* autoplay refused: the poster stays */ });
+    }
+    // The film loads only once the plate has been on screen for 600 ms (a visitor who moves on at
+    // once downloads nothing), and pauses while it is scrolled out of view.
+    var io = new IntersectionObserver(function (entries) {
+      inView = plate.isConnected && entries[entries.length - 1].isIntersecting;
+      clearTimeout(timer);
+      if (inView) timer = setTimeout(function () { if (plate.isConnected && film.poster) play(); }, 600);
+      else if (!video.paused) video.pause();
+    });
+    video.addEventListener('error', fail);
+    video.addEventListener('playing', function () { plate.classList.add('is-playing'); plate.classList.remove('is-paused'); });
+    toggle.addEventListener('click', function () {
+      if (video.paused) { userPaused = false; video.play(); toggle.textContent = 'Pause film'; toggle.setAttribute('aria-pressed', 'false'); }
+      else { userPaused = true; video.pause(); plate.classList.add('is-paused'); plate.classList.remove('is-playing'); toggle.textContent = 'Play film'; toggle.setAttribute('aria-pressed', 'true'); }
+    });
+
+    function go() { if (film.poster) { showPoster(); io.observe(plate); } }
+    if (film.poster === null) {
+      var probe = new Image();
+      probe.onload = function () { film.poster = true; if (plate.isConnected) go(); };
+      probe.onerror = function () { film.poster = false; };   // not delivered yet: the drawing stays
+      probe.src = posterUrl;
+    } else go();
+  }
+
+  /* ---------- contact form: validate, then open a mailto: draft ---------- */
+  var TOPIC_SUBJECT = {
+    software: 'Software project', transformation: 'Digital transformation', business: 'Business solutions',
+    partnership: 'Partnership', oboko: 'Oboko', careers: 'Careers', other: 'Enquiry'
+  };
+  function buildMailto(d) {
+    var subject = TOPIC_SUBJECT[d.topic] + ' · ' + d.name + (d.org ? ' (' + d.org + ')' : '');
+    var body = d.message + '\r\n\r\n--\r\n' + d.name + (d.org ? '\r\n' + d.org : '') + '\r\n' + d.email;
+    return 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+  function initForm(form) {
+    var fields = { name: form.elements.name, email: form.elements.email, message: form.elements.message };
+    var status = form.querySelector('#form-status');
+    function check(name) {
+      var el = fields[name], err = form.querySelector('#e-' + name), v = el.value.trim(), msg = '';
+      if (!v) msg = { name: 'Please enter your name.', email: 'Please enter your e-mail address.', message: 'Please write a short message.' }[name];
+      else if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = 'This e-mail address looks incomplete, for example name@company.com.';
+      err.textContent = msg; err.classList.toggle('is-shown', !!msg);
+      if (msg) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+      return !msg;
+    }
+    Object.keys(fields).forEach(function (n) {
+      fields[n].addEventListener('blur', function () { if (fields[n].hasAttribute('aria-invalid')) check(n); });
+      fields[n].addEventListener('input', function () { if (fields[n].hasAttribute('aria-invalid')) check(n); });
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var bad = Object.keys(fields).filter(function (n) { return !check(n); });
+      if (bad.length) { status.textContent = ''; fields[bad[0]].focus(); return; }
+      var url = buildMailto({
+        name: fields.name.value.trim(), email: fields.email.value.trim(), org: form.elements.org.value.trim(),
+        topic: form.elements.topic.value, message: fields.message.value.trim()
+      });
+      Afripro.openMail(url);
+      status.innerHTML = 'Your mail app should now open with the draft. If nothing happens, write to <a href="mailto:' + EMAIL + '">' + EMAIL + '</a> directly.';
+    });
+  }
+
+  window.Afripro = { buildMailto: buildMailto, openMail: function (url) { window.location.href = url; } };
+
+  render();
+  onScroll();
+})();
+</script>
+</body>
+</html>
