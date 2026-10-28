@@ -475,10 +475,16 @@ p { text-wrap: pretty; }
   .page-head-grid > :last-child { grid-column: 9 / span 4; }
 }
 
+/* photos (DESIGN.md §7.9): full colour, square, fixed crops, mono caption; the tint shows while loading */
 .photo-band figure { position: relative; }
-.photo-band img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.photo-band img, .places img, .contact-photo img { width: 100%; object-fit: cover; background: var(--line); }
+.photo-band img { aspect-ratio: 16 / 9; }
 @media (min-width: 900px) { .photo-band img { aspect-ratio: 21 / 9; } }
-.photo-band figcaption { margin-top: var(--s3); color: var(--text-muted); display: flex; gap: var(--s4); flex-wrap: wrap; justify-content: space-between; }
+.photo-band--end { padding-bottom: var(--section); }
+.photo-band figcaption, .photo-cap { margin-top: var(--s3); color: var(--text-muted); display: flex; gap: 4px var(--s4); flex-wrap: wrap; justify-content: space-between; }
+.places { display: grid; gap: var(--s6) var(--col-gap); margin-top: clamp(48px, 6vw, 72px); }
+@media (min-width: 600px) { .places { grid-template-columns: 1fr 1fr; } }
+.places img, .contact-photo img { aspect-ratio: 3 / 2; }
 
 .two-sides { display: grid; gap: 0; border-top: 2px solid var(--rule); }
 .two-sides > div { padding-block: var(--s5) var(--s6); border-bottom: 1px solid var(--line); }
@@ -557,9 +563,10 @@ p { text-wrap: pretty; }
 /* contact */
 .contact-grid { display: grid; gap: var(--s8); }
 @media (min-width: 1024px) {
-  .contact-grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--col-gap); align-items: start; }
+  .contact-grid { grid-template-columns: repeat(12, 1fr); grid-template-rows: auto 1fr; column-gap: var(--col-gap); row-gap: var(--s7); align-items: start; }
   .contact-grid > :first-child { grid-column: 1 / span 5; }
-  .contact-grid > :last-child { grid-column: 7 / span 6; }
+  .contact-grid > .form { grid-column: 7 / span 6; grid-row: 1 / span 2; }
+  .contact-grid > .contact-photo { grid-column: 1 / span 5; grid-row: 2; }
 }
 .address { font-stretch: 75%; font-weight: 700; font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem); line-height: 1; font-style: normal; margin-bottom: var(--s6); }
 .address .mono { display: block; font-stretch: 100%; margin-bottom: var(--s4); color: var(--text-muted); }
@@ -771,6 +778,17 @@ p { text-wrap: pretty; }
         <li class="principle"><h3 class="h3">Trust is the standard</h3><p>Security, reliability and quality held to international standards, because people rely on what we build with their money and their plans.</p></li>
         <li class="principle"><h3 class="h3">Made to scale, here to stay</h3><p>Designed to grow across industries and countries, and run as a long-term partnership, not handed over and left.</p></li>
       </ol>
+    </div>
+  </section>
+
+  <section class="photo-band photo-band--end tone-paper" aria-label="Lagos">
+    <div class="wrap">
+      <figure>
+        <img src="assets/img/lagos-vi-1280.webp" srcset="assets/img/lagos-vi-640.webp 640w, assets/img/lagos-vi-1280.webp 1280w, assets/img/lagos-vi-1800.webp 1800w"
+             sizes="(min-width: 1376px) 1280px, (min-width: 1024px) calc(100vw - 96px), calc(100vw - 32px)" width="1800" height="772" loading="lazy" decoding="async"
+             alt="Victoria Island, Lagos, from above: a road along the lagoon, a glass tower, boats at a marina and the city beyond.">
+        <figcaption class="mono"><span>Victoria Island, Lagos</span><span>Photo: Nupo Deyon Daniel, Unsplash</span></figcaption>
+      </figure>
     </div>
   </section>
 
@@ -1002,6 +1020,25 @@ p { text-wrap: pretty; }
         </div>
       </div>
 
+      <ul class="places" role="list" aria-label="Cities">
+        <li>
+          <figure>
+            <img src="assets/img/lagos-skyline-1280.webp" srcset="assets/img/lagos-skyline-640.webp 640w, assets/img/lagos-skyline-1280.webp 1280w"
+                 sizes="(min-width: 1376px) 628px, (min-width: 1024px) calc(50vw - 60px), (min-width: 600px) calc(50vw - 44px), calc(100vw - 32px)" width="1280" height="854" loading="lazy" decoding="async"
+                 alt="Lagos from above: apartment blocks and palm trees in front, the towers of Lagos Island on the horizon.">
+            <figcaption class="mono photo-cap"><span>Lagos</span><span>Photo: Obinna Okerekeocha, Unsplash</span></figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <img src="assets/img/abuja-mosque-1140.webp" srcset="assets/img/abuja-mosque-640.webp 640w, assets/img/abuja-mosque-1140.webp 1140w"
+                 sizes="(min-width: 1376px) 628px, (min-width: 1024px) calc(50vw - 60px), (min-width: 600px) calc(50vw - 44px), calc(100vw - 32px)" width="1140" height="760" loading="lazy" decoding="async"
+                 alt="Abuja: the golden dome and minarets of the National Mosque, with the Millennium Tower under construction behind.">
+            <figcaption class="mono photo-cap"><span>Abuja</span><span>Photo: Blessing Niniola, Pexels</span></figcaption>
+          </figure>
+        </li>
+      </ul>
+
       <h3 class="h3" style="margin: 72px 0 24px">How a stay reaches a guest</h3>
       <ol class="flow" role="list">
         <li><span class="n mono">01</span><b>Listed</b><p>A host lists a hotel, apartment or shortlet.</p></li>
@@ -1147,6 +1184,13 @@ p { text-wrap: pretty; }
         <div><button class="btn btn-primary" type="submit" aria-describedby="form-note">Open e-mail draft <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
         <p class="form-status" id="form-status" role="status"></p>
       </form>
+
+      <figure class="contact-photo">
+        <img src="assets/img/lagos-link-bridge-1280.webp" srcset="assets/img/lagos-link-bridge-640.webp 640w, assets/img/lagos-link-bridge-1280.webp 1280w"
+             sizes="(min-width: 1376px) 513px, (min-width: 1024px) calc(41.7vw - 60px), calc(100vw - 32px)" width="1280" height="854" loading="lazy" decoding="async"
+             alt="The Lekki–Ikoyi Link Bridge in Lagos at dusk, seen from a car on the bridge.">
+        <figcaption class="mono photo-cap"><span>Lekki–Ikoyi Link Bridge, Lagos</span><span>Photo: Ben Iwara, Unsplash</span></figcaption>
+      </figure>
     </div>
   </section>
 </template>
